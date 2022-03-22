@@ -1,6 +1,8 @@
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from threading import Thread
-from whyteweb.Router import Router
+
+from .Handler import RequestHandler, DOM
+from .Router import Router
 
 
 class Serve:
@@ -49,20 +51,7 @@ class Serve:
             self.http.shutdown()
 
     def makeHandler(self, request, client_address, connection_handler):
-        return self.RequestHandler(self, request, client_address, connection_handler)
+        return RequestHandler(self, request, client_address, connection_handler)
 
-    class RequestHandler(BaseHTTPRequestHandler):
-
-        def __init__(self, serve, *args, **kwargs):
-            self.parent = serve
-            super().__init__(*args, **kwargs)
-
-        def do_GET(self):
-            if self.path in self.parent.get_router().get_paths():
-                self.send_response(200)
-                self.send_header('Content-type', 'text/html')
-                self.end_headers()
-                self.wfile.write(bytes(self.parent.get_router().get_route(self.path).value, "utf-8"))
-            else:
-                self.send_response(404)
-                self.end_headers()
+    def create_dom(self):
+        DOM().do_render()

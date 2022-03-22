@@ -3,8 +3,8 @@ class Component:
         self.props = props[0]
         self.children = children
 
-    def onUpdate(self):
+    def on_update(self):
         return ()
 
-    def render(self):
+    def on_render(self):
         return None

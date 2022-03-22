@@ -15,9 +15,8 @@ WhyteWeb is an HTTP Server Library, written in Python, for idiots.
 :license: All Rights Reserved
 """
 
-from .Serve import Serve
-from .Router import Router
-from .Component import Component
+from .server import *
+from .client import *
 
 import logging
 
